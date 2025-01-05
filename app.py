@@ -20,8 +20,8 @@ class ToDo(db.Model): #Model is a base class from SQLAlchemy that the class ToDo
 #POST method can be used to send data (user fills form) to the server (flask server handles and processes requests and generates responses) which updates database and refreshes the page
 def index():
     if request.method == 'POST':
-        task_content=request.form['content']
-        new_task=ToDo(content=task_content)
+        task_content=request.form['content']#'content' is name of html form
+        new_task=ToDo(content=task_content)#content here is ToDo class property
 
         try:
             db.session.add(new_task)
@@ -32,7 +32,7 @@ def index():
 
     else:
         tasks= ToDo.query.order_by(ToDo.data_created).all()
-        return render_template('index.html', tasks=tasks)
+        return render_template('index.html', tasks=tasks) #left side tasks is tasks variable in index.html, right side is the one above tasks=ToDo.query which is being assigned to the html tasks variable
 
 @app.route('/delete/<int:id>')
 def delete(id):
@@ -61,3 +61,4 @@ def update(id):
 
 if __name__=="__main__" : #ensures app is run only when script run directly (not as a module)
     app.run(debug=True)
+#https://to-do-list-flask.up.railway.app/
